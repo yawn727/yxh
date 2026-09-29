@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跨学科综合实践 · 探秘天文景象——火星冲日 项目式学习任务单</title>
+<style>
+  :root{
+    --primary:#2b6cb0;
+    --primary-light:#ebf4ff;
+    --accent:#2f855a;
+    --accent-light:#f0fff4;
+    --danger:#c53030;
+    --danger-dark:#9b2c2c;
+    --text:#2d3748;
+    --muted:#718096;
+    --border:#e2e8f0;
+    --bg:#f7fafc;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px 60px}
+  .header{text-align:center;padding:32px 20px 24px;background:linear-gradient(135deg,#2f855a,#276749);color:#fff;border-radius:14px;margin-bottom:24px;box-shadow:0 4px 16px rgba(47,133,90,.2)}
+  .header h1{font-size:24px;font-weight:700;letter-spacing:1px}
+  .header p{font-size:14px;opacity:.85;margin-top:8px}
+  .progress-wrap{background:#e2e8f0;border-radius:10px;height:24px;overflow:hidden;margin:12px 0 24px;position:relative}
+  .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#38a169,#2f855a);transition:width 0.4s ease;border-radius:10px}
+  .progress-text{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#1a202c;font-weight:600;font-size:14px}
+  .progress-desc{text-align:center;font-size:14px;color:var(--muted);margin-bottom:20px}
+  .project-title{text-align:center;font-size:22px;font-weight:700;color:var(--accent);margin-bottom:6px}
+  .project-subtitle{text-align:center;color:var(--muted);font-size:14px;margin-bottom:20px}
+  .section{background:var(--card);border-radius:12px;padding:24px 28px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.05);border-left:4px solid var(--accent)}
+  .section h2{font-size:19px;color:var(--accent);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--accent-light);display:flex;align-items:center;gap:8px}
+  .section h2 .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--accent);color:#fff;border-radius:50%;font-size:14px}
+  .section h3{font-size:16px;color:var(--text);margin:18px 0 10px;padding-left:10px;border-left:3px solid var(--primary)}
+  .section p{margin-bottom:10px;color:#4a5568}
+  .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+  .info-item label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  .info-item input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;background:#fff}
+  .info-item input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+
+  /* 日期输入框包装：显示中文“年‑月‑日”占位 */
+  .date-input-wrap{position:relative;width:100%;}
+  .date-input-wrap::before{
+    content:"年‑月‑日";
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#999;
+    pointer-events:none;
+    font-size:14px;
+  }
+  .date-input-wrap.has-value::before{display:none;}
+  .date-input-wrap input[type="date"]{
+    color:transparent;
+  }
+  .date-input-wrap.has-value input[type="date"]{
+    color:inherit;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor:pointer;
+  }
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:9px 10px;text-align:left;vertical-align:top}
+  th{background:var(--accent-light);color:var(--accent);font-weight:600}
+  td input,td textarea{width:100%;border:none;outline:none;font-size:14px;background:transparent;font-family:inherit;resize:vertical}
+  td textarea{min-height:36px}
+  .btn-plus{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:6px 14px;background:var(--primary);color:#fff;
+    border:none;border-radius:6px;cursor:pointer;font-size:13px;margin-top:8px;
+  }
+  .btn-plus:hover{background:#2c5282}
+  .btn-minus{
+    background:var(--danger);color:#fff;border:none;
+    border-radius:4px;padding:3px 8px;font-size:14px;cursor:pointer;
+  }
+  .btn-minus:hover{background:var(--danger-dark)}
+  .stage{background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:14px 0}
+  .stage-tag{display:inline-block;background:var(--accent);color:#fff;font-size:12px;padding:3px 10px;border-radius:12px;margin-bottom:8px}
+  .stage ol{padding-left:22px;margin:8px 0}
+  .stage ol li{margin-bottom:6px;color:#4a5568}
+
+  /*===== 紧凑上传组件，替换大块虚线框 =====*/
+  .upload-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;}
+  .upload-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 12px;border:1px dashed var(--border);border-radius:6px;
+    cursor:pointer;font-size:13px;color:var(--primary);background:#fafbfc;
+  }
+  .upload-btn:hover{border-color:var(--accent);background:var(--accent-light)}
+  .upload-preview{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+  .upload-preview img{max-width:120px;max-height:90px;object-fit:cover;border-radius:4px;border:1px solid var(--border)}
+  .upload-preview .file-chip{background:var(--accent-light);color:var(--accent);padding:4px 8px;border-radius:4px;font-size:12px;display:flex;align-items:center;gap:4px}
+  .file-input-hidden{
+    position:absolute;
+    width:1px;height:1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+  }
+  .link-input-wrap{margin-top:6px}
+  .link-input-wrap label{font-size:13px;color:var(--muted)}
+  .link-input-wrap input[type="url"]{width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;margin-top:4px}
+
+  .eval-table th{text-align:center}
+  .eval-table td{text-align:center;vertical-align:middle}
+  .eval-table td:first-child{text-align:left;font-weight:500}
+  .eval-radio{display:flex;justify-content:center;gap:6px}
+  .eval-radio label{cursor:pointer}
+  .eval-radio input{display:none}
+  .eval-radio input:checked + span{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .eval-radio span{display:inline-block;padding:4px 10px;border-radius:4px;font-size:13px;border:1px solid var(--border)}
+
+  .reflection-box{margin-bottom:14px}
+  .reflection-box label{display:block;font-weight:600;color:var(--text);margin-bottom:6px;font-size:14px}
+  .reflection-box textarea{width:100%;min-height:90px;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;line-height:1.7}
+  .reflection-box textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+
+  /* 拆分后的小输入块样式 */
+  .item-input-block{margin:12px 0;}
+  .item-input-block label{display:block;font-size:14px;font-weight:500;margin-bottom:4px;color:#2d3748;}
+  .item-input-block textarea{width:100%;min-height:70px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:14px;resize:vertical;}
+
+  ::placeholder{color:#999;opacity:1}
+  .print-bar{text-align:center;margin-top:20px;display:flex;justify-content:center;gap:16px}
+  .btn-print,.btn-submit{padding:10px 28px;border:none;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;box-shadow:0 2px 8px rgba(47,133,90,.25)}
+  .btn-print{background:var(--accent);color:#fff}
+  .btn-print:hover{background:#276749}
+  .btn-submit{background:var(--primary);color:#fff}
+  .btn-submit:hover{background:#2c5282}
+  .tag-list{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .tag{background:var(--accent-light);color:var(--accent);padding:4px 12px;border-radius:14px;font-size:13px}
+  .tag.blue{background:var(--primary-light);color:var(--primary)}
+  .img-upload-cell{cursor:pointer;color:#2b6cb0;text-align:center}
+  .img-upload-cell img{max-width:100px;max-height:80px}
+  .hide-block{display:none;transition:0.3s;}
+  .show-block{display:block;}
+
+  /* =====计算辅助工具样式===== */
+  .tool-wrap{background:#edf2fb;border:1px solid #cbd5e0;border-radius:8px;padding:16px;margin:12px 0}
+  .tool-title{font-weight:bold;color:#2b6cb0;margin-bottom:10px;font-size:15px}
+  .tool-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;align-items:center}
+  .tool-row input{padding:6px 10px;border:1px solid var(--border);border-radius:4px;font-size:14px;width:140px}
+  .tool-btn{padding:6px 12px;background:#2b6cb0;color:white;border:none;border-radius:4px;cursor:pointer;font-size:13px}
+  .tool-btn:hover{background:#2c5282}
+  .tool-res{width:100%;min-height:120px;border:1px solid var(--border);border-radius:6px;padding:10px;font-size:13px;background:#fff;white-space:pre-wrap;resize:vertical}
+
+  @media print{
+    body{background:#fff}
+    .btn-print,.btn-plus,.btn-minus,.upload-btn,.btn-submit,.link-input-wrap,.tool-wrap,.date-input-wrap{display:none!important}
+    .file-input-hidden{display:none !important;}
+    .section{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+    .header{background:#2f855a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .progress-wrap,.progress-desc{display:none !important;}
+  }
+  @media(max-width:640px){
+    .info-grid{grid-template-columns:1fr}
+    .section{padding:18px 16px}
+    .tool-row{flex-direction:column;align-items:stretch}
+    .tool-row input{width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>项目式学习任务单</h1>
+    <p>探秘天文景象——火星冲日 —— 数学跨学科综合实践任务</p>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="mainProgressBar"></div>
+    <div class="progress-text" id="progressPercent">0%</div>
+  </div>
+  <div class="progress-desc">任务完成进度，填写内容后自动更新</div>
+  <div class="project-title">探秘天文景象——火星冲日</div>
+  <div class="project-subtitle">数学跨学科实践：环形追及模型、周期分式推导，融合天文地理探究天象规律</div>
+
+  <div class="section">
+    <h2><span class="num">一</span>基础信息</h2>
+    <div class="info-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="info-item"><label>姓名</label><input type="text" class="progress-item" placeholder="请填写姓名"></div>
+      <div class="info-item"><label>班级</label><input type="text" class="progress-item" placeholder="如：七年级1班"></div>
+      <div class="info-item">
+        <label>填写日期</label>
+        <div class="date-input-wrap" id="dateWrap">
+          <input type="date" class="progress-item" id="dateInput">
+        </div>
+      </div>
+    </div>
+    <h3>团队分工情况</h3>
+    <table id="team-table">
+      <thead><tr><th style="width:30%">成员姓名</th><th>承担任务</th><th style="width:80px">操作</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><input type="text" class="progress-item"></td>
+          <td><input type="text" class="progress-item"></td>
+          <td><button class="btn-minus" onclick="delRow(this,'team-table')">➖</button></td>
+        </tr>
+        <tr>
+          <td><input type="text" class="progress-item"></td>
+          <td><input type="text" class="progress-item"></td>
+          <td><button class="btn-minus" onclick="delRow(this,'team-table')">➖</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn-plus" onclick="addRow('team-table')">➕ 添加成员</button>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">二</span>探秘天文景象——火星冲日</h2>
+    <h3>问题背景</h3>
+    <p>火星冲日是指火星、地球和太阳几乎排列成一条直线，地球位于火星和太阳两者之间的天文现象。发生火星冲日期间，太阳刚落下，火星便从东方升起；直至次日太阳东升，火星才从西方落下，人们整夜都能够观测到火星。一般情况下，冲日发生时刻火星距离地球最近，亮度达到一年当中的峰值。地球、火星围绕太阳公转轨道、公转周期各不相同，因此火星冲日具备周期性规律。本次综合实践围绕火星冲日展开探究，厘清火星冲日景象发生的规律，尝试预测下一次火星冲日发生时间，拓展认识太阳系中其他特殊天文景象，实现数学、天文、地理知识融合。</p>
+    <h3>涉及的知识</h3>
+    <div class="tag-list">
+      <span class="tag">周期运算</span>
+      <span class="tag">环形追及数学模型</span>
+      <span class="tag">分式公式推导</span>
+      <span class="tag">比例运算</span>
+      <span class="tag blue">跨学科：太阳系行星公转天文、地理知识</span>
+    </div>
+    <h3>项目成果要求</h3>
+    <p>完成任务1资料搜集、天象位置构型分析；任务2环形追及模型推演，推导冲日间隔周期公式；任务3对比金星凌日，区分冲日发生行星类型；撰写科普小论文，完成课堂分享交流。<br><strong>提示：请先自主演算，完成填写后，到页面末尾使用计算辅助工具核对结果。</strong></p>
+
+    <h3>任务1 资料搜集与位置构型分析</h3>
+    <div class="stage">
+      <span class="stage-tag">探究要求</span>
+      <ol>
+        <li>通过查阅资料，了解火星、地球公转轨道形状、公转周期相关知识，收集近几年火星冲日发生的具体时间，自主归纳火星冲日大致周期。</li>
+        <li>思考火星、地球和太阳能够排成一条直线的所有位置构型，对比不同位置情形下，火星与地球之间距离的远近。</li>
+      </ol>
+
+      <div class="item-input-block">
+        <label>1.记录地球、火星公转轨道、公转周期资料，记录搜集到的火星冲日发生时间，归纳大致周期</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+      <div class="item-input-block">
+        <label>2.画出或者描述地‑火‑日三者共线的不同位置构型，对比不同构型下地球与火星之间距离远近</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+
+      <div class="upload-row">
+        <label for="upload‑mars‑t1" class="upload-btn">📤上传搜集资料截图、位置构型手绘示意图</label>
+        <input class="file-input-hidden progress-file" type="file" id="upload‑mars‑t1" multiple accept="image/*" onchange="previewFiles(this,'preview‑mars‑t1');updateProgress()">
+      </div>
+      <div class="upload-preview" id="preview‑mars‑t1"></div>
+      <div class="link-input-wrap">
+        <label>或填写文件/图片访问链接：</label>
+        <input type="url" class="progress-item" placeholder="粘贴云文档、图片链接">
+      </div>
+    </div>
+
+    <h3>任务2 理想化圆形轨道模型与周期公式推导</h3>
+    <div class="stage">
+      <span class="stage-tag">探究要求</span>
+      <ol>
+        <li>理想化简化模型：把火星与地球公转轨道看作圆形，运用周期相关数学知识预测下一次火星冲日的时间，并且分析理论预测结果和真实天象产生误差的原因。</li>
+        <li>设定火星公转周期为T，地球公转周期为E，两次火星冲日间隔周期为S，自主推导周期S的计算公式。</li>
+      </ol>
+
+      <div class="item-input-block">
+        <label>1.写出环形追及的推导过程，推导出S关于E、T的分式公式</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+      <div class="item-input-block">
+        <label>2.代入周期数据，预测火星冲日发生时间</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+      <div class="item-input-block">
+        <label>3.分析理想化圆形轨道假设、真实椭圆轨道等带来的误差来源</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+
+      <div class="upload-row">
+        <label for="upload‑mars‑t2" class="upload-btn">📤上传公式推导草稿、演算图片</label>
+        <input class="file-input-hidden progress-file" type="file" id="upload‑mars‑t2" multiple accept="image/*" onchange="previewFiles(this,'preview‑mars‑t2');updateProgress()">
+      </div>
+      <div class="upload-preview" id="preview‑mars‑t2"></div>
+      <div class="link-input-wrap">
+        <label>或填写文件/图片访问链接：</label>
+        <input type="url" class="progress-item" placeholder="粘贴云文档、图片链接">
+      </div>
+    </div>
+
+    <h3>任务3 天象对比、行星分类与科普小论文</h3>
+    <div class="stage">
+      <span class="stage-tag">探究要求</span>
+      <ol>
+        <li>查阅资料了解金星凌日天文景象，梳理金星凌日与火星冲日两种天象的相同点与不同点。</li>
+        <li>结合太阳系八大行星轨道分布特点，思考冲日现象只能够发生在地球和哪一类行星之间。</li>
+        <li>成果展示：整合全部探究成果撰写科普小论文，向同学们介绍太阳系中富有特色的天文景象。</li>
+      </ol>
+
+      <div class="item-input-block">
+        <label>1.记录金星凌日相关资料，对比火星冲日、金星凌日的异同点</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+      <div class="item-input-block">
+        <label>2.写出冲日现象对应的行星类别，说明你的判断理由</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+      <div class="item-input-block">
+        <label>3.撰写科普小论文草稿，梳理课堂分享要点</label>
+        <textarea class="progress-item"></textarea>
+      </div>
+
+      <div class="upload-row">
+        <label for="upload‑mars‑t3" class="upload-btn">📤上传科普小论文、资料摘抄、对比示意图</label>
+        <input class="file-input-hidden progress-file" type="file" id="upload‑mars‑t3" multiple accept="image/*,.pdf,.docx" onchange="previewFiles(this,'preview‑mars‑t3');updateProgress()">
+      </div>
+      <div class="upload-preview" id="preview‑mars‑t3"></div>
+      <div class="link-input-wrap">
+        <label>或填写文件/图片访问链接：</label>
+        <input type="url" class="progress-item" placeholder="粘贴云文档、图片链接">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">三</span>自我评价</h2>
+    <table class="eval-table">
+      <thead><tr><th style="width:22%">评价维度</th><th>优秀（A）</th><th>良好（B）</th><th>合格（C）</th><th>不合格（D）</th><th style="width:120px">自我评分</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>资料搜集与天象构型分析</td>
+          <td>资料搜集充分完整，位置构型分析清晰，距离对比准确</td>
+          <td>资料基本齐全，构型分析大体正确</td>
+          <td>资料较少，构型分析存在部分错误</td>
+          <td>没有完成资料搜集，无法分析位置构型</td>
+          <td>
+            <div class="eval-radio">
+              <label><input type="radio" name="e1" class="progress-radio"><span>A</span></label>
+              <label><input type="radio" name="e1" class="progress-radio"><span>B</span></label>
+              <label><input type="radio" name="e1" class="progress-radio"><span>C</span></label>
+              <label><input type="radio" name="e1" class="progress-radio"><span>D</span></label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>环形追及模型与分式公式推导</td>
+          <td>追及模型理解透彻，公式推导逻辑严谨完整</td>
+          <td>理解环形追及，推导过程基本完整，少量疏漏</td>
+          <td>对追及模型理解模糊，推导残缺</td>
+          <td>不能建立环形追及模型，无法完成公式推导</td>
+          <td>
+            <div class="eval-radio">
+              <label><input type="radio" name="e2" class="progress-radio"><span>A</span></label>
+              <label><input type="radio" name="e2" class="progress-radio"><span>B</span></label>
+              <label><input type="radio" name="e2" class="progress-radio"><span>C</span></label>
+              <label><input type="radio" name="e2" class="progress-radio"><span>D</span></label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>误差分析、天象对比与行星分类思考</td>
+          <td>误差原因分析到位，两种天象异同对比完整，行星类别判断理由充分</td>
+          <td>可以完成对比与分类思考，分析大体合理</td>
+          <td>对比内容单薄，部分概念混淆</td>
+          <td>无法区分冲日、凌日现象，不能区分行星类别</td>
+          <td>
+            <div class="eval-radio">
+              <label><input type="radio" name="e3" class="progress-radio"><span>A</span></label>
+              <label><input type="radio" name="e3" class="progress-radio"><span>B</span></label>
+              <label><input type="radio" name="e3" class="progress-radio"><span>C</span></label>
+              <label><input type="radio" name="e3" class="progress-radio"><span>D</span></label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>科普小论文成果完成质量</td>
+          <td>小论文结构完整，数学与天文知识融合，适合课堂分享</td>
+          <td>完成科普小论文，内容完整通顺</td>
+          <td>小论文内容单薄，逻辑不够连贯</td>
+          <td>未完成科普小论文撰写</td>
+          <td>
+            <div class="eval-radio">
+              <label><input type="radio" name="e4" class="progress-radio"><span>A</span></label>
+              <label><input type="radio" name="e4" class="progress-radio"><span>B</span></label>
+              <label><input type="radio" name="e4" class="progress-radio"><span>C</span></label>
+              <label><input type="radio" name="e4" class="progress-radio"><span>D</span></label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>小组协作分工</td>
+          <td>分工清晰，全员全程参与探究实践</td>
+          <td>分工明确，团队配合正常</td>
+          <td>分工混乱，部分成员参与度低</td>
+          <td>几乎没有团队协作</td>
+          <td>
+            <div class="eval-radio">
+              <label><input type="radio" name="e5" class="progress-radio"><span>A</span></label>
+              <label><input type="radio" name="e5" class="progress-radio"><span>B</span></label>
+              <label><input type="radio" name="e5" class="progress-radio"><span>C</span></label>
+              <label><input type="radio" name="e5" class="progress-radio"><span>D</span></label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">四</span>总结与反思</h2>
+    <div class="reflection-box">
+      <label>本次项目的收获：说说环形追及模型、周期分式推导的收获；体会数学模型解释天文现象，数学融合天文地理跨学科学习的感悟</label>
+      <textarea class="progress-item"></textarea>
+    </div>
+    <div class="reflection-box">
+      <label>遇到的困难及改进思路：在环形追及模型理解、分式推导、区分冲日凌日概念、查阅天文资料时遇到哪些困难，后续如何优化分析方法</label>
+      <textarea class="progress-item"></textarea>
+    </div>
+  </div>
+
+  <!-- 五、计算辅助工具（自主完成后用来核对参考） -->
+  <div class="section">
+    <h2><span class="num">五</span>计算辅助工具（自主完成后用来核对参考）</h2>
+    <div class="tool-wrap">
+      <div class="tool-title">🧮 冲日周期辅助演算工具（环形追及）</div>
+      <div class="tool-row">
+        <input id="earthPeriod" placeholder="地球公转周期E(年)" value="1.0">
+        <input id="marsPeriod" placeholder="火星公转周期T(年)" value="1.88">
+        <button class="tool-btn" onclick="calcOppositionCycle()">计算冲日间隔S</button>
+      </div>
+      <textarea class="tool-res" id="oppositionOut" readonly placeholder="输出追及公式演算、冲日间隔周期结果……"></textarea>
+    </div>
+  </div>
+
+  <div class="print-bar">
+    <button class="btn-print" onclick="window.print()">🖨️ 打印 / 导出为PDF</button>
+    <button class="btn-submit" onclick="submitTask()">✅ 提交完整任务单</button>
+  </div>
+</div>
+<script>
+//日期输入框切换有无值的样式
+const dateInput=document.getElementById('dateInput');
+const dateWrap=document.getElementById('dateWrap');
+function updateDateWrap(){
+  if(dateInput.value){
+    dateWrap.classList.add('has-value');
+  }else{
+    dateWrap.classList.remove('has-value');
+  }
+}
+dateInput.addEventListener('input',updateDateWrap);
+
+//====火星冲日辅助计算工具====
+/**
+ * 环形追及：地球周期E，火星周期T，S为冲日间隔
+ * 1/S = 1/E − 1/T
+ */
+function calcOppositionCycle(){
+  const E = Number(document.getElementById('earthPeriod').value);
+  const T = Number(document.getElementById('marsPeriod').value);
+  if(isNaN(E)||isNaN(T)||E<=0||T<=0||E>=T){
+    document.getElementById('oppositionOut').value="输入错误；需要满足：地球周期E>0，火星周期T>0，且T>E（地外行星）";
+    return;
+  }
+  const S = 1/(1/E - 1/T);
+  let log=[];
+  log.push(`已知：地球公转周期 E = ${E} 年`);
+  log.push(`火星公转周期 T = ${T} 年`);
+  log.push(`环形追及关系：地球比火星多转一圈再次冲日`);
+  log.push(`追及方程：1/S = 1/E − 1/T`);
+  log.push(`化简：S = 1 ÷ (1/E − 1/T)`);
+  log.push(`代入数值计算：S = ${S.toFixed(3)} 年`);
+  document.getElementById('oppositionOut').value = log.join("\n");
+}
+// 提交交互
+function submitTask(){
+  alert('任务单提交成功，可上交教师批阅！');
+}
+// 表格新增行
+function addRow(tableId){
+  const tbody=document.querySelector('#'+tableId+' tbody');
+  if(!tbody){
+    return;
+  }
+  const firstRow=tbody.querySelector('tr');
+  if(!firstRow){
+    const tr=document.createElement('tr');
+    for(let i=0;i<4;i++){
+      const td=document.createElement('td');
+      const input=document.createElement('input');
+      input.className="progress-item";
+      input.addEventListener('input',updateProgress);
+      td.appendChild(input);
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }else{
+    const newRow=firstRow.cloneNode(true);
+    newRow.querySelectorAll('input,textarea').forEach(el=>{
+      el.value='';
+      if(el.classList.contains('progress-item')) el.addEventListener('input',updateProgress);
+    });
+    tbody.appendChild(newRow);
+  }
+  updateProgress();
+}
+// 删除行，最少保留一行
+function delRow(btn,tableId){
+  const tr = btn.closest('tr');
+  const tbody = document.querySelector('#'+tableId+' tbody');
+  if(tbody.rows.length <= 1){
+    alert('表格至少保留一行，无法全部删除');
+    return;
+  }
+  tbody.removeChild(tr);
+  updateProgress();
+}
+// 文件上传预览
+function previewFiles(input,previewId){
+  const preview=document.getElementById(previewId);
+  preview.innerHTML='';
+  Array.from(input.files).forEach(file=>{
+    if(file.type.startsWith('image/')){
+      const img=document.createElement('img');
+      img.src=URL.createObjectURL(file);
+      preview.appendChild(img);
+    }else{
+      const chip=document.createElement('div');
+      chip.className='file-chip';
+      chip.textContent='📄 '+file.name;
+      preview.appendChild(chip);
+    }
+  });
+}
+/* ========== 自动进度统计 ========== */
+const progressInputs = document.querySelectorAll('.progress-item');
+const progressRadios = document.querySelectorAll('.progress-radio');
+const progressFiles = document.querySelectorAll('.progress-file');
+// 绑定输入事件
+progressInputs.forEach(el=>el.addEventListener('input',updateProgress));
+progressRadios.forEach(el=>el.addEventListener('change',updateProgress));
+function updateProgress(){
+  let total=0;
+  let done=0;
+  // 文本输入框 textarea input
+  document.querySelectorAll('.progress-item').forEach(i=>{
+    total++;
+    const val = (i.value||'').trim();
+    if(val.length>0) done++;
+  });
+  // 单选框，每组算1项
+  const radioGroups = ["e1","e2","e3","e4","e5"];
+  radioGroups.forEach(name=>{
+    total++;
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    if(checked) done++;
+  });
+  // 文件上传，每个file输入框算1项
+  document.querySelectorAll('.progress-file').forEach(f=>{
+    total++;
+    if(f.files && f.files.length>0) done++;
+  });
+  let percent = total>0 ? Math.round((done/total)*100) : 0;
+  if(percent>100) percent=100;
+  document.getElementById('mainProgressBar').style.width = percent+'%';
+  document.getElementById('progressPercent').innerText = percent+'%';
+}
+// 页面初次加载执行一次
+window.addEventListener('load',()=>{
+  updateDateWrap();
+  updateProgress();
+});
+</script>
+</body>
+</html>
